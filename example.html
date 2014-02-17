@@ -95,7 +95,7 @@
                   }
                   
                   var content = document.createElement('div');
-                  content.innerHTML = results[0].address_components[0].long_name + ', центр города' + '<br>' + results[0].geometry.location;
+                  content.innerHTML = results[0].formatted_address + '<br>Центр города';
                   console.log(results[0]);
                   
                   var infowindow = new google.maps.InfoWindow({
