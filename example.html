@@ -91,11 +91,13 @@
            });
          }
          
-         //очистить карту и память... переписать вообще без массива.. осторожней с obj = null
+         //очистить карту и память... переписать без массива.. 
          google.maps.Map.prototype.clearOverlays = function() {
-           for (var i = 0; i < markerArray.length; i++) {
+           for (i in markerArray) {
+             //убрать с карты
              markerArray[i].setMap(null);
-             markerArray[i] = undefined;
+             //удалить из памяти
+             markerArray[i] = null;
            }
            markerArray.length = 0;
          }
