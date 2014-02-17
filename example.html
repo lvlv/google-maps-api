@@ -48,6 +48,10 @@
             letter-spacing: 0.05em;
             float: left; margin: 0;
          }
+         
+         #fadeIn {
+            
+         }
       </style>
       <script src="https://maps.googleapis.com/maps/api/js?v=3.14&sensor=false&language=ru"></script>
       <script>
@@ -57,7 +61,6 @@
             var mapOptions = {
                zoom : 14,
                mapTypeId : google.maps.MapTypeId.SATELLITE,
-               disableDefaultUI : true,
             }
             map = new google.maps.Map(document.getElementById('map'), mapOptions);
             codeAddress();
@@ -74,7 +77,7 @@
                   if (status == google.maps.GeocoderStatus.OK) {
                     map.setCenter(results[0].geometry.location);
                     var marker = new google.maps.Marker({
-                     animation : google.maps.Animation.DROP,
+                        animation : google.maps.Animation.DROP,
                         icon : 'http://iconizer.net/files/WooFunction_Icon_set/orig/home.png',
                         map : map,
                         position : results[0].geometry.location,
@@ -84,7 +87,16 @@
                   } else {
                     alert('Geocode was not successful for the following reason: ' + status);
                   }
+                  var content = document.createElement('div');
+                  content.innerHTML = results[0].formatted_address + '<br>' + results[0].geometry.location;
+                  
+                  var infowindow = new google.maps.InfoWindow({
+                     content: content,
+                  });
+                  
+                 setTimeout(function(){infowindow.open(map, marker)}, 1000);
            });
+           
          }
          
          //можно очистить память просто обнулением объекта marker (obj = null) 
@@ -98,6 +110,7 @@
          }
          
          google.maps.event.addDomListener(window, 'load', initialize);
+         
       </script>
    </head>
    <body>
