@@ -12,11 +12,11 @@
       }
       
       #container {
-      	position: absolute;
-      	top: 25px;
-      	left: 50%;
-				margin-left: -82px;
-				z-index: 5;
+        position: absolute;
+        top: 25px;
+        left: 50%;
+        margin-left: -82px;
+        z-index: 5;
         height: 32px;
         font-family: Helvetica;
         font-size: 15px;
@@ -41,80 +41,75 @@
 
       
       #serach-btn {
-      	background: #fff; border-left: 1px solid #ccc;
-				height: 100%;
-				display: block;
-				line-height: 33px;
-				float: left;
-				border-radius: 0 3px 3px 0;
-				padding: 0 6px;
-				cursor: pointer;
+         background: #fff; border-left: 1px solid #ccc;
+         height: 100%;
+         display: block;
+         line-height: 33px;
+         float: left;
+         border-radius: 0 3px 3px 0;
+         padding: 0 6px;
+         cursor: pointer;
       }
       
     </style>
     <script>
-		function loadScript() {
-		  var script = document.createElement('script');
-		  script.type = 'text/javascript';
-		  script.src = 'https://maps.googleapis.com/maps/api/js?sensor=false&language=ru&' +
-//run fn initialize
-		      'callback=initialize';
-//maybe don't need
-      script.async = true;
-		  document.body.appendChild(script);
-		}
+      function loadScript() {
+        var script = document.createElement('script');
+         script.type = 'text/javascript';
+         script.src = 'https://maps.googleapis.com/maps/api/js?sensor=false&language=ru&' +
+         //run fn initialize
+            'callback=initialize';
+         //maybe don't need
+         script.async = true;
+         document.body.appendChild(script);
+      }
     
     function addEvent(element, _event, funct){
-			  if (element.attachEvent)
-			   return element.attachEvent('on'+_event, funct);
-			  else
-			   return element.addEventListener(_event, funct, false);
-		}
-//Asynchronous cross-browser Loading script
-		addEvent(window, 'load', loadScript);
-    
-    var geocoder, map;
-		function initialize() {
-		  geocoder = new google.maps.Geocoder();
-		  var mapOptions = {
-		  	mapTypeId:google.maps.MapTypeId.SATELLITE,
-		  	disableDefaultUI: true,
-		    zoom: 14,
-	     mapMaker: true,
-		  }
-		  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-			
-		  codeAddress();
-		  function codeAddress() {
-		    var address = document.getElementById('search-box').value || 'Москва';
-		    geocoder.geocode( { 'address': address}, function(results, status) {
-		    if (status == google.maps.GeocoderStatus.OK) {
-		      map.setCenter(results[0].geometry.location);
-		      var marker = new google.maps.Marker({
-							animation: google.maps.Animation.DROP,
-							icon: {
-		      			url: 'http://iconizer.net/files/WooFunction_Icon_set/orig/home.png',
-		      		},
-		          map: map,
-		          position: results[0].geometry.location
-		      });
-		    } else {
-		      alert('Geocode was not successful for the following reason: ' + status);
-		    }
-	  		});
-			}
-		
-		
-}
+           if (element.attachEvent)
+            return element.attachEvent('on'+_event, funct);
+           else
+            return element.addEventListener(_event, funct, false);
+      }
+      //Asynchronous cross-browser Loading script
+      addEvent(window, 'load', loadScript);
 
-
-
-	</script>
+        var geocoder, map;
+        function initialize() {
+           geocoder = new google.maps.Geocoder();
+           var mapOptions = {
+              mapTypeId:google.maps.MapTypeId.SATELLITE,
+              disableDefaultUI: true,
+              zoom: 14,
+              mapMaker: true, 
+         }
+         var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+         codeAddress();
+         function codeAddress() {
+            var address = document.getElementById('search-box').value || 'Москва';
+            geocoder.geocode( { 'address': address}, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                  animation: google.maps.Animation.DROP,
+                  icon: {
+                    url: 'http://iconizer.net/files/WooFunction_Icon_set/orig/home.png',
+                  /*можно добавить ancor point*/
+                  },
+                  map: map,
+                  position: results[0].geometry.location
+                });
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+            });
+         }
+        }
+   </script>
   </head>
   <body>
-  	<div id='container'>
-	    <input id="search-box" type="text" placeholder="Город">
-	    <a id="serach-btn">Поиск</a>
+     <div id='container'>
+       <input id="search-box" type="text" placeholder="Город">
+       <a id="serach-btn">Поиск</a>
     </div>
     <div id="map"></div>
   </body>
