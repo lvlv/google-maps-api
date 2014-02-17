@@ -60,7 +60,6 @@
             geocoder = new google.maps.Geocoder();
             var mapOptions = {
                zoom : 14,
-               mapTypeId : google.maps.MapTypeId.SATELLITE,
             }
             map = new google.maps.Map(document.getElementById('map'), mapOptions);
             codeAddress();
@@ -75,6 +74,7 @@
                }, 
                function(results, status) {
                   if (status == google.maps.GeocoderStatus.OK) {
+                    map.setZoom(14);
                     map.setCenter(results[0].geometry.location);
                     var marker = new google.maps.Marker({
                         animation : google.maps.Animation.DROP,
@@ -87,8 +87,10 @@
                   } else {
                     alert('Geocode was not successful for the following reason: ' + status);
                   }
+                  
                   var content = document.createElement('div');
                   content.innerHTML = results[0].formatted_address + '<br>' + results[0].geometry.location;
+                  console.log(results[0]);
                   
                   var infowindow = new google.maps.InfoWindow({
                      content: content,
