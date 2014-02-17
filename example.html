@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Center (Geocoding service)</title>
+    <style>
+      html, body, #map {
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+			}
+      
+      #container {
+      	position: absolute;
+      	top: 25px;
+      	left: 50%;
+				margin-left: -82px;
+				z-index: 5;
+        height: 32px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+      
+      
+      #search-box {
+        width: 110px;
+        padding: 0 11px 0 13px;
+        font-weight: 300;
+        border: 1px solid transparent;
+        border-radius: 3px 0 0 3px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        height: 100%;
+        float: left;
+        border-right: 1px solid #ccc
+      }
+
+      
+      #serach-btn {
+      	background: #fff; border: none;
+				height: 100%;
+				display: block;
+				line-height: 33px;
+				border-radius: 0 3px 3px 0;
+				padding: 0 6px;
+				cursor: pointer;
+      }
+      
+      #search-box, #serach-btn {
+      	font-size: 15px; font-family: Helvetica;
+      	background: #fff; letter-spacing: 0.05em;
+      }
+      
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.14&sensor=false&language=ru"></script>
+    <script>
+		var geocoder, map;
+		function initialize() {
+		  geocoder = new google.maps.Geocoder();
+		  var mapOptions = {
+				zoom: 14,
+		    mapTypeId:google.maps.MapTypeId.SATELLITE,
+		  	disableDefaultUI: true,
+		  }
+		  map = new google.maps.Map(document.getElementById('map'), mapOptions);
+		  codeAddress();
+		}
+		
+		var markerArray = [];
+		
+		function codeAddress() {
+		  var address = document.getElementById('search-box').value;
+		  geocoder.geocode( { 'address': address}, function(results, status) {
+		    if (status == google.maps.GeocoderStatus.OK) {
+		      map.setCenter(results[0].geometry.location);
+					map.clearOverlays();
+		      var marker = new google.maps.Marker({
+		      		animation: google.maps.Animation.DROP,
+							icon: {
+		      			url: 'http://iconizer.net/files/WooFunction_Icon_set/orig/home.png',
+//можно добавить смешение, но не понятно как зафиксировать при ресайзе
+		      		},
+		          map: map,
+		          position: results[0].geometry.location,
+		      });
+		      markerArray.push(marker);
+		    } else {
+		      alert('Geocode was not successful for the following reason: ' + status);
+		    }
+		  });
+		  
+		}
+		
+		//очистить карту и память
+		google.maps.Map.prototype.clearOverlays = function() {
+		  for (var i = 0; i < markerArray.length; i++ ) {
+		    markerArray[i].setMap(null);
+		    markerArray[i] = null;
+		  }
+		  markerArray.length = 0;
+		}
+		
+		google.maps.event.addDomListener(window, 'load', initialize);
+		</script>
+  </head>
+  <body>
+    <div id="container">
+      <input id="search-box" type="textbox" value="Москва">
+      <input id="serach-btn" type="button" value="Поиск" onclick="codeAddress();">
+    </div>
+    <div id="map"></div>
+  </body>
+</html>
