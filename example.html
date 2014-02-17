@@ -74,16 +74,22 @@
                }, 
                function(results, status) {
                   if (status == google.maps.GeocoderStatus.OK) {
-                    map.setZoom(14);
-                    map.setCenter(results[0].geometry.location);
-                    var marker = new google.maps.Marker({
-                        animation : google.maps.Animation.DROP,
-                        icon : 'http://iconizer.net/files/WooFunction_Icon_set/orig/home.png',
-                        map : map,
-                        position : results[0].geometry.location,
-                     });
-                  map.clearOverlays();
-                  markerArray.push(marker);
+                     //определить город ли это. возможно есть способ лучше...
+                     if(results[0].types[0] == 'locality'){
+                       map.setZoom(14);
+                       map.setCenter(results[0].geometry.location);
+                       var marker = new google.maps.Marker({
+                           animation : google.maps.Animation.DROP,
+                           icon : 'http://iconizer.net/files/WooFunction_Icon_set/orig/home.png',
+                           map : map,
+                           position : results[0].geometry.location,
+                        });
+                        map.clearOverlays();
+                        markerArray.push(marker);
+                     }else {  
+                        alert('This is not a city!'); 
+                        return; 
+                     }
                   } else {
                     alert('Geocode was not successful for the following reason: ' + status);
                   }
