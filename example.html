@@ -95,6 +95,7 @@
          google.maps.Map.prototype.clearOverlays = function() {
            for (var i = 0; i < markerArray.length; i++) {
              markerArray[i].setMap(null);
+             markerArray[i] = null;
            }
            markerArray.length = 0;
          }
