@@ -29,7 +29,6 @@
             -moz-box-sizing: border-box;
             outline: none;
             height: 100%;
-            float: left;
             border-right: 1px solid #ccc
          }
          #serach-btn {
@@ -47,6 +46,7 @@
             font-family: Helvetica;
             background: #fff;
             letter-spacing: 0.05em;
+            float: left; margin: 0;
          }
       </style>
       <script src="https://maps.googleapis.com/maps/api/js?v=3.14&sensor=false&language=ru"></script>
@@ -83,12 +83,12 @@
                            map : map,
                            position : results[0].geometry.location,
                         });
-                     markerArray.push(marker);
+                     
+                  markerArray.push(marker);
                   } else {
                     alert('Geocode was not successful for the following reason: ' + status);
                   }
            });
-         
          }
          
          //очистить карту и память
