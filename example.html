@@ -66,7 +66,7 @@
          var markerArray = [];
          
          function codeAddress() {
-            var address = document.getElementById('search-box').value;
+            var address = document.getElementById('search-box').value || 'Москва';
             geocoder.geocode({
                'address' : address
                }, 
@@ -102,7 +102,7 @@
    </head>
    <body>
       <div id="container">
-         <input id="search-box" type="textbox" value="Москва" placeholder="Город">
+         <input id="search-box" type="textbox" placeholder="Город">
          <input id="serach-btn" type="button" value="Поиск" onclick="codeAddress();">
       </div>
       <div id="map"></div>
