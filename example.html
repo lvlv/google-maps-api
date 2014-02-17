@@ -77,12 +77,10 @@
                         map.clearOverlays();
                     var marker = new google.maps.Marker({
                      animation : google.maps.Animation.DROP,
-                         icon : {
-                           url : 'http://iconizer.net/files/WooFunction_Icon_set/orig/home.png',
-                         },
-                           map : map,
-                           position : results[0].geometry.location,
-                        });
+                        icon : 'http://iconizer.net/files/WooFunction_Icon_set/orig/home.png',
+                        map : map,
+                        position : results[0].geometry.location,
+                     });
                      
                   markerArray.push(marker);
                   } else {
