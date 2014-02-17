@@ -73,12 +73,12 @@
                function(results, status) {
                   if (status == google.maps.GeocoderStatus.OK) {
                     map.setCenter(results[0].geometry.location);
-                    map.clearOverlays();
+                    if(markerArray.length > 0)
+                        map.clearOverlays();
                     var marker = new google.maps.Marker({
                      animation : google.maps.Animation.DROP,
                          icon : {
                            url : 'http://iconizer.net/files/WooFunction_Icon_set/orig/home.png',
-                         //можно добавить смешение, но не понятно как зафиксировать при ресайзе
                          },
                            map : map,
                            position : results[0].geometry.location,
@@ -91,11 +91,10 @@
            });
          }
          
-         //очистить карту и память
+         //очистить карту и память... переписать вообще без массива.. осторожней с obj = null
          google.maps.Map.prototype.clearOverlays = function() {
            for (var i = 0; i < markerArray.length; i++) {
              markerArray[i].setMap(null);
-             markerArray[i] = null;
            }
            markerArray.length = 0;
          }
