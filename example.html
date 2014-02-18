@@ -58,17 +58,7 @@
          var geocoder, map;
          function initialize() {
             geocoder = new google.maps.Geocoder();
-            /*пока что лучше указать начальные настройки
-             TODO: протестировать без mapOptions - все равно codeAddress() делает (почти?) тоже самое
-            */
-            var mapOptions = {
-               center: new google.maps.LatLng(-34.397, 150.644),
-               zoom: 14,
-               mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-            map = new google.maps.Map(document.getElementById('map'), mapOptions);
-            //меняем настройки на Москву
-            codeAddress();
+            map = new google.maps.Map(document.getElementById('map'), codeAddress());
          }
          
          var markerArray = [];
