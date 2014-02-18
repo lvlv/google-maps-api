@@ -70,7 +70,8 @@
          function codeAddress() {
             var address = document.getElementById('search-box').value || 'Москва';
             geocoder.geocode({
-               'address' : address
+               //для городов названия которых такое же как и их страна, потому что в первую очередь находит страну
+               'address' : address + 'город'
                }, 
                function(results, status) {
                   if (status == google.maps.GeocoderStatus.OK) {
