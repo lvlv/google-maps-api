@@ -81,7 +81,6 @@
                   if (status == google.maps.GeocoderStatus.OK) {
                      //определить город ли пришел в ответе. возможно есть лучший способ отфильтровать города...
                      if(results[0].types[0] === 'locality'){
-                       map.setZoom(14);
                        map.setCenter(results[0].geometry.location);
                        var marker = new google.maps.Marker({
                            animation : google.maps.Animation.DROP,
