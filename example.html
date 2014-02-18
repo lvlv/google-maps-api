@@ -49,9 +49,6 @@
             float: left; margin: 0;
          }
          
-         #fadeIn {
-            
-         }
       </style>
       <script src="https://maps.googleapis.com/maps/api/js?v=3.14&sensor=false&language=ru"></script>
       <script>
@@ -82,6 +79,7 @@
                      //определить город ли пришел в ответе. возможно есть лучший способ отфильтровать города...
                      if(results[0].types[0] === 'locality'){
                        map.setCenter(results[0].geometry.location);
+                       map.setZoom(14);
                        var marker = new google.maps.Marker({
                            animation : google.maps.Animation.DROP,
                            icon : 'http://iconizer.net/files/WooFunction_Icon_set/orig/home.png',
