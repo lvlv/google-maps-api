@@ -59,7 +59,8 @@
             var mapOptions = {
                center: new google.maps.LatLng(-34.397, 150.644),
                zoom: 14,
-               mapTypeId: google.maps.MapTypeId.ROADMAP
+               mapTypeId: google.maps.MapTypeId.ROADMAP,
+               componentRestrictions: {country: "us"}
             };
             map = new google.maps.Map(document.getElementById('map'), mapOptions);
             //меняем настройки на Москву
@@ -117,7 +118,7 @@
              markerArray[i].setMap(null);
            }
            //удалить ссылки на объекты, вследствие чего сборщик мусора удалит объекты из памяти
-           markerArray = [];
+           markerArray.length = 0;
            
          }
          
