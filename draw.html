@@ -66,7 +66,7 @@
             codeAddress()
          }
          
-         // var markerArray = [];
+         var arr = [];
          
          function codeAddress() {
             var address = document.getElementById('search-box').value || 'Москва';
@@ -89,7 +89,8 @@
                               center: results[0].geometry.location,
                               radius: 200
                        });
-                        // map.clearOverlays();
+                        map.clearOverlays();
+                        arr.push(circle);
                      }else {  
                         alert('This is not a city!'); 
                         return; 
@@ -104,12 +105,12 @@
          
          //можно очистить память просто обнулением объекта marker (obj = null) 
          google.maps.Map.prototype.clearOverlays = function() {
-           for (i in markerArray) {
+           for (i in arr) {
              //убрать с карты
-             markerArray[i].setMap(null);
+             arr[i].setMap(null);
            }
            //удалить ссылки на объекты, вследствие чего сборщик мусора удалит объекты из памяти
-           markerArray.length = 0;
+           arr.length = 0;
            
          }
          
