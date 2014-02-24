@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>hmm</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.14&sensor=false"></script>
+    <script>
+// This example adds a red rectangle to a map.
+
+var moscow = new google.maps.LatLng(55.7558, 37.6173); 
+
+function initialize() {
+  var map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 15,
+    center: moscow,
+  });
+
+  var rectangle = new google.maps.Rectangle({
+    strokeColor: '#FF0000',
+    strokeOpacity: 1,
+    strokeWeight: 1,
+    fillOpacity: 0.0,
+    map: map,
+    bounds: new google.maps.LatLngBounds(
+      moscow,
+      //то чт я прибавляю не равные числа связано с кривизной Земли... 
+      new google.maps.LatLng(moscow.ob + 0.001, moscow.pb + 0.0017)
+      )
+  });
+  
+  var roofPath = [
+    moscow,
+    //не понял как нормально производить вычисления 
+    new google.maps.LatLng(moscow.ob + 0.0001, moscow.pb)
+  ]
+  
+  var roof = new google.maps.Polygon({
+    paths: roofPath,
+    strokeColor: '#000000',
+    strokeOpacity: 1,
+    strokeWeight: 1,
+    fillOpacity: 0.0,
+    map: map
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>
