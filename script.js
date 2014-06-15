@@ -11,7 +11,7 @@ function initialize() {
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
     //меняем настройки на Москву
     codeAddress();
-    
+
     var btn = document.getElementById('search-btn');
     google.maps.event.addDomListener(btn, 'click', codeAddress);
 }
