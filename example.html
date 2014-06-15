@@ -4,131 +4,14 @@
       <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
       <meta charset="utf-8">
       <title>Center (Geocoding service)</title>
-      <style>
-         html, body, #map {
-            height: 100%;
-            margin: 0px;
-            padding: 0px;
-         }
-         #container {
-            position: absolute;
-            top: 25px;
-            left: 50%;
-            margin-left: -105px;
-            z-index: 5;
-            height: 32px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-         }
-         #search-box {
-            width: 150px;
-            padding: 0 11px 0 13px;
-            font-weight: 300;
-            border: 1px solid transparent;
-            border-radius: 3px 0 0 3px;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            outline: none;
-            height: 100%;
-            border-right: 1px solid #ccc
-         }
-         #serach-btn {
-            background: #fff;
-            border: none;
-            height: 100%;
-            display: block;
-            line-height: 33px;
-            border-radius: 0 3px 3px 0;
-            padding: 0 6px;
-            cursor: pointer;
-         }
-         #search-box, #serach-btn {
-            font-size: 15px;
-            font-family: Helvetica;
-            background: #fff;
-            letter-spacing: 0.05em;
-            float: left; margin: 0;
-         }
-         
-      </style>
+      <link rel="stylesheet" type="text/css" href="style.css" />
       <script src="https://maps.googleapis.com/maps/api/js?v=3.14&sensor=false&language=ru"></script>
-      <script>
-         var geocoder, map;
-         function initialize() {
-            geocoder = new google.maps.Geocoder();
-            //пока что лучше указать начальные настройки
-            var mapOptions = {
-               center: new google.maps.LatLng(-34.397, 150.644),
-               zoom: 14,
-               mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-            map = new google.maps.Map(document.getElementById('map'), mapOptions);
-            //меняем настройки на Москву
-            codeAddress()
-         }
-         
-         var markerArray = [];
-         
-         function codeAddress() {
-            var address = document.getElementById('search-box').value || 'Москва';
-            geocoder.geocode({
-               //для городов названия которых такое же как и их страна, потому что в первую очередь находит страну
-               'address' : address + ' город'
-            }, 
-               function(results, status) {
-                  if (status == google.maps.GeocoderStatus.OK) {
-                     //определить город ли пришел в ответе. возможно есть лучший способ отфильтровать города...
-                     if(results[0].types[0] === 'locality'){
-                       map.setCenter(results[0].geometry.location);
-                       map.setZoom(14);
-                       var marker = new google.maps.Marker({
-                           animation : google.maps.Animation.DROP,
-                           icon : 'http://iconizer.net/files/WooFunction_Icon_set/orig/home.png',
-                           map : map,
-                           position : results[0].geometry.location,
-                        });
-                        map.clearOverlays();
-                        markerArray.push(marker);
-                     }else {  
-                        alert('This is not a city!'); 
-                        return; 
-                     }
-                  } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                  }
-                  
-                 
-                  var content = document.createElement('div');
-                  content.innerHTML = results[0].formatted_address + '<br>Центр города';
-                  
-                  
-                  var infowindow = new google.maps.InfoWindow({
-                     content: content,
-                  });
-                 
-                  infowindow.open(map, marker);
-           });
-           
-         }
-         
-         //можно очистить память просто обнулением объекта marker (obj = null) 
-         google.maps.Map.prototype.clearOverlays = function() {
-           for (i in markerArray) {
-             //убрать с карты
-             markerArray[i].setMap(null);
-           }
-           //удалить ссылки на объекты, вследствие чего сборщик мусора удалит объекты из памяти
-           markerArray.length = 0;
-           
-         }
-         
-         google.maps.event.addDomListener(window, 'load', initialize);
-         
-      </script>
+      <script src="script.js"></script>
    </head>
    <body>
       <div id="container">
          <input id="search-box" type="textbox" placeholder="Город">
-         <input id="serach-btn" type="button" value="Поиск" onclick="codeAddress();">
+         <input id="search-btn" type="button" value="Поиск">
       </div>
       <div id="map"></div>
    </body>
