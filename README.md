@@ -1,6 +1,4 @@
-lvlv.github.io
+Get Center
 ==============
 
-first try google map api
-
-online http://lvlv.github.io/example
+google map api example - find center of the city
